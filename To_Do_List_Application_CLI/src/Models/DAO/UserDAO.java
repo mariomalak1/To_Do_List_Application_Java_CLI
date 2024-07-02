@@ -3,8 +3,16 @@ package Models.DAO;
 import Models.User;
 
 import java.util.List;
+import java.sql.*;
 
 public class UserDAO implements IUserDAO{
+
+    private final DataBaseManager dataBaseManager;
+
+    UserDAO(){
+        dataBaseManager = DataBaseManager.getDataBaseManager();
+    }
+
     @Override
     public void add(User user) {
 

@@ -14,6 +14,12 @@ public class Task {
     private Boolean Status;
 
 
+    public Task(String name, String description, Integer priority, Boolean status) {
+        Name = name;
+        Description = description;
+        Priority = priority;
+        Status = status;
+    }
 
     @Override
     public String toString() {
