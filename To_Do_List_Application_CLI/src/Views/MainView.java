@@ -14,8 +14,8 @@ public class MainView {
 
     private static void redirectInput(int response){
         switch (response) {
-//            case 1 -> UserView.registrationForCustomer();
-//            case 2 -> UserView.Login();
+            case 1 -> UserView.registrationForCustomer();
+            case 2 -> UserView.login();
             case 3 -> System.exit(0);
         }
     }

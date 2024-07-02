@@ -1,6 +1,5 @@
 package Models.DAO;
 
-import Models.Task;
 import Models.User;
 
 import java.util.ArrayList;
@@ -16,7 +15,7 @@ public class UserDAO implements IUserDAO{
     }
 
     @Override
-    public void add(User user) {
+    public User add(User user) {
         Connection connection = dataBaseManager.getConnection();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO users (username, email, password) VALUES (?, ?, ?)");
@@ -27,9 +26,11 @@ public class UserDAO implements IUserDAO{
             if (recordsAffected == 0){
                 System.out.println("Can't add this user right now, please check your database connection.");
             }
+            return user;
         } catch (SQLException e) {
             System.out.println("Can't add this user right now, please check your database connection.");
         }
+        return null;
     }
 
     @Override
@@ -51,13 +52,38 @@ public class UserDAO implements IUserDAO{
     }
 
     @Override
+    public User getUserByUserName(String username) {
+        Connection connection = dataBaseManager.getConnection();
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("select * from users where username = " + username);
+
+            if (!resultSet.next()){
+                return null;
+            }
+            return extractUserFromResultSet(resultSet);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
     public Boolean delete(User user) {
         return null;
     }
 
     @Override
-    public Boolean update(User user1, User user2) {
-        return null;
+    public Boolean update(String username, User user1) {
+        Connection connection = dataBaseManager.getConnection();
+        try {
+            Statement statement = connection.createStatement();
+            int rowAffected = statement.executeUpdate("UPDATE users SET username = '?', logged = ?, password = ?, email = ? where username = ?");
+            return rowAffected != 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     @Override
