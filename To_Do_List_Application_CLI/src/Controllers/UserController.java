@@ -20,7 +20,6 @@ public class UserController {
         return user;
     }
 
-
     public User login(String username, String password){
         User user = userDAO.getUserByUserName(username);
         if (user == null){
@@ -30,11 +29,14 @@ public class UserController {
         if (user.getPassword().equals(password)){
             user.setLogged(true);
             if (userDAO.update(user.getUserName(), user)){
-                System.out.println("Successfully Login");
+                System.out.println("Successfully Login.");
                 return user;
             }else{
                 System.out.println("Something wrong in data.");
             }
+        }
+        else{
+            System.out.println("Password is invalid.");
         }
         return null;
     }
