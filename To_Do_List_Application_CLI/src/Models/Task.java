@@ -13,12 +13,14 @@ public class Task {
     // if status is done it will be true
     private Boolean Status;
 
+    private User user;
 
-    public Task(String name, String description, Integer priority, Boolean status) {
+    public Task(String name, String description, Integer priority, Boolean status, User user) {
         Name = name;
         Description = description;
         Priority = priority;
         Status = status;
+        this.user = user;
     }
 
     @Override
@@ -29,6 +31,7 @@ public class Task {
                 ", Description='" + Description + '\'' +
                 ", Priority=" + Priority +
                 ", Status=" + Status +
+                ", User_ID=" + user.getID() +
                 '}';
     }
 
@@ -36,7 +39,7 @@ public class Task {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Task task)) return false;
-        return getID().equals(task.getID()) && getName().equals(task.getName()) && Objects.equals(getDescription(), task.getDescription()) && Objects.equals(getPriority(), task.getPriority()) && Objects.equals(getStatus(), task.getStatus());
+        return getID().equals(task.getID()) && getName().equals(task.getName()) && Objects.equals(getDescription(), task.getDescription()) && Objects.equals(getPriority(), task.getPriority()) && Objects.equals(getStatus(), task.getStatus()) && Objects.equals(getUser(), task.getUser());
     }
 
     @Override
@@ -44,12 +47,13 @@ public class Task {
         return Objects.hash(getID(), getName(), getDescription(), getPriority(), getStatus());
     }
 
-    public Task(Integer ID, String name, String description, Boolean status, Integer priority) {
+    public Task(Integer ID, String name, String description, Boolean status, Integer priority, User user) {
         this.ID = ID;
         Name = name;
         Description = description;
         Status = status;
         Priority = priority;
+        this.user = user;
     }
 
     public Task(){
@@ -103,4 +107,11 @@ public class Task {
         Priority = priority;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }

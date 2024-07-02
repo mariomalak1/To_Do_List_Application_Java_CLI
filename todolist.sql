@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 02, 2024 at 01:46 AM
+-- Generation Time: Jul 02, 2024 at 03:56 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -53,7 +53,8 @@ CREATE TABLE `tasks` (
   `name` varchar(250) NOT NULL,
   `description` text DEFAULT NULL,
   `status` tinyint(1) NOT NULL DEFAULT 0,
-  `priority` int(11) NOT NULL DEFAULT 4
+  `priority` int(11) NOT NULL DEFAULT 4,
+  `userID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -78,7 +79,8 @@ CREATE TABLE `users` (
 -- Indexes for table `tasks`
 --
 ALTER TABLE `tasks`
-  ADD PRIMARY KEY (`ID`);
+  ADD PRIMARY KEY (`ID`,`userID`),
+  ADD KEY `TaskUserID` (`userID`);
 
 --
 -- Indexes for table `users`
@@ -95,13 +97,23 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `tasks`
 --
 ALTER TABLE `tasks`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `tasks`
+--
+ALTER TABLE `tasks`
+  ADD CONSTRAINT `TaskUserID` FOREIGN KEY (`userID`) REFERENCES `users` (`ID`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

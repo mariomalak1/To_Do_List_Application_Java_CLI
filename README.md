@@ -10,5 +10,4 @@ using MVC Architecture Pattern
 using DAO, Singleton Design Pattern.
 
 1. first u need to download JDK if you haven't.
-1. then put SQL queries provide i project and create the database in MySQL engine
-1. 
+2. then put SQL queries provide i project and create the database in MySQL engine
