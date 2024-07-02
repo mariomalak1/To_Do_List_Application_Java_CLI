@@ -36,7 +36,7 @@ public class TaskDAO implements ITaskDAO {
                     task.setID(generatedID);
                     return task;
                 } else {
-                    System.out.println("No ID get to task from, as it failed to save it.");
+                    System.out.println("No ID get to task, as it failed to save it.");
                     return null;
                 }
             }
@@ -84,10 +84,48 @@ public class TaskDAO implements ITaskDAO {
 
     @Override
     public List<Task> getAllTaskForUser(User user) {
+        return getTaskWithFiltration(user, null, null, null, null);
+    }
+
+    @Override
+    public List<Task> getTaskWithFiltration(User user, String name, String description, Boolean status, Integer priority) {
         Connection connection = dataBaseManager.getConnection();
         try {
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("select * from tasks where userID = " + user.getID());
+            String query ="select * from tasks where userID = ?";
+            int parameterNumber = 1;
+            if (name != null){
+                query += " and name LIKE ?";
+            }
+            if (description != null){
+                query += " and description LIKE ?";
+            }
+            if (status != null){
+                query += " and status = ?";
+            }
+            if (priority != null){
+                query += " and priority = ?";
+            }
+
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, user.getID());
+            if (name != null){
+                parameterNumber++;
+                preparedStatement.setString(parameterNumber,"%" + name + "%");
+            }
+            if (description != null){
+                parameterNumber++;
+                preparedStatement.setString(parameterNumber, "%" + description + "%");
+            }
+            if (status != null){
+                parameterNumber++;
+                preparedStatement.setBoolean(parameterNumber, status);
+            }
+            if (priority != null){
+                parameterNumber++;
+                preparedStatement.setInt(parameterNumber, priority);
+            }
+
+            ResultSet resultSet = preparedStatement.executeQuery();
             List<Task> tasks = new ArrayList<>();
             while (resultSet.next()){
                 Task task = new Task();

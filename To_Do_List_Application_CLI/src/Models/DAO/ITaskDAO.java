@@ -16,4 +16,6 @@ public interface ITaskDAO {
     Boolean update(int taskID, Task task2);
 
     List<Task> getAllTaskForUser(User user);
+
+    List<Task> getTaskWithFiltration(User user, String name, String description, Boolean status, Integer priority);
 }

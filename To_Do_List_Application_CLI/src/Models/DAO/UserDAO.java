@@ -26,7 +26,17 @@ public class UserDAO implements IUserDAO{
             if (recordsAffected == 0){
                 System.out.println("Can't add this user right now, please check your database connection.");
             }
-            return user;
+            // to get generated ID for task
+            try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    int generatedID = generatedKeys.getInt(1);
+                    user.setID(generatedID);
+                    return user;
+                } else {
+                    System.out.println("No ID get to user, as it failed to save it.");
+                    return null;
+                }
+            }
         } catch (SQLException e) {
             System.out.println("Can't add this user right now, please check your database connection.");
         }
