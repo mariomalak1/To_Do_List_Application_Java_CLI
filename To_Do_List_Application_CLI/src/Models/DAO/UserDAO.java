@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.sql.*;
 
+//import static java.sql.Statement.RETURN_GENERATED_KEYS;
+
 public class UserDAO implements IUserDAO{
 
     private final DataBaseManager dataBaseManager;
@@ -18,7 +20,7 @@ public class UserDAO implements IUserDAO{
     public User add(User user) {
         Connection connection = dataBaseManager.getConnection();
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO users (username, email, password) VALUES (?, ?, ?)");
+            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO users (username, email, password) VALUES (?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, user.getUserName());
             preparedStatement.setString(2, user.getEmail());
             preparedStatement.setString(3, user.getPassword());
@@ -29,6 +31,7 @@ public class UserDAO implements IUserDAO{
             // to get generated ID for task
             try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
+                    System.out.println("generated");
                     int generatedID = generatedKeys.getInt(1);
                     user.setID(generatedID);
                     return user;
@@ -38,7 +41,8 @@ public class UserDAO implements IUserDAO{
                 }
             }
         } catch (SQLException e) {
-            System.out.println("Can't add this user right now, please check your database connection.");
+            e.printStackTrace();
+//            System.out.println("Can't add this user right now, please check your database connection.");
         }
         return null;
     }

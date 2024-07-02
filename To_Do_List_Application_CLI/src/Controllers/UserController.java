@@ -2,10 +2,12 @@ package Controllers;
 
 import Models.User;
 import Models.DAO.UserDAO;
+import Models.Validation.ValidateEntity;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
+import java.util.List;
 
 public class UserController {
     private static final UserDAO userDAO;
@@ -35,6 +37,17 @@ public class UserController {
     }
 
     public User createUser(User user) {
+        if (user == null){
+            return null;
+        }
+
+        // check that the required fields are not empty
+        List<String> emptyRequiredFields = ValidateEntity.validate(user, "Password", "UserName");
+        if (emptyRequiredFields.size() > 0){
+            System.out.println(ValidateEntity.RequiredFieldsInString(emptyRequiredFields));
+            return null;
+        }
+
         if (userDAO.UserNameExist(user.getUserName())){
             System.out.println("This username is already taken before");
             return null;
@@ -43,10 +56,15 @@ public class UserController {
         // hash password
         user.setPassword(hashPassword(user.getPassword()));
         user = userDAO.add(user);
+
+
         if (user == null){
             System.out.println("there's some error");
             return null;
         }
+        System.out.println("Registration Done Successfully, You Can Login Now");
+        System.out.println("You UserName : " + user.getUserName() + " Remember It As You Will Login With It");
+
         return user;
     }
 

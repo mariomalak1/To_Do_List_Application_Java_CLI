@@ -1,18 +1,16 @@
 package Models;
 
-import Models.Validation.RequiredField;
-
 import java.util.Objects;
 
 public class User {
 
-    @RequiredField
+
     private Integer ID;
 
-    @RequiredField
+
     private String UserName;
 
-    @RequiredField
+
     private String Password;
 
     private Boolean Logged;

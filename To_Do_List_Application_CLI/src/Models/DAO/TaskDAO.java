@@ -18,7 +18,7 @@ public class TaskDAO implements ITaskDAO {
     public Task add(Task task) {
         Connection connection = dataBaseManager.getConnection();
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO tasks (name, description, status, priority, userID) VALUES (?, ?, ?, ?, ?)");
+            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO tasks (name, description, status, priority, userID) VALUES (?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, task.getName());
             preparedStatement.setString(2, task.getDescription());
             preparedStatement.setBoolean(3, task.getStatus());
