@@ -12,12 +12,20 @@ public class DataBaseManager {
     private String url;
     private String username;
     private String password;
-    Connection connection;
+    private Connection connection;
+    private static DataBaseManager dataBaseManager = null;
 
+
+    public static DataBaseManager getDataBaseManager(){
+        if (dataBaseManager == null){
+            dataBaseManager = new DataBaseManager();
+        }
+        return dataBaseManager;
+    }
 
     private DataBaseManager() {
         Properties properties = new Properties();
-        try (InputStream input = getClass().getClassLoader().getResourceAsStream("db.properties")) {
+        try (InputStream input = getClass().getClassLoader().getResourceAsStream("\\db.properties")) {
             if (input == null) {
                 System.out.println("Sorry, unable to find db.properties");
                 return;
@@ -32,6 +40,7 @@ public class DataBaseManager {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
             connection = DriverManager.getConnection(this.url, this.username, this.password);
+            connection.close();
         }
         catch(IOException e){
             e.printStackTrace();
@@ -43,6 +52,7 @@ public class DataBaseManager {
             System.exit(0);
         }
     }
+
     public Connection getConnection(){
         return connection;
     }
