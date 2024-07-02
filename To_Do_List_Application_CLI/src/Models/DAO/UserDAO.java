@@ -7,6 +7,7 @@ import java.util.List;
 public class UserDAO implements IUserDAO{
     @Override
     public void add(User user) {
+
     }
 
     @Override
