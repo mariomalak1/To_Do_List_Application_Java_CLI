@@ -1,19 +1,29 @@
 package Models;
 
+import Models.Validation.RequiredField;
+
 import java.util.Objects;
 
 public class Task {
+
+    @RequiredField
     private Integer ID;
+    @RequiredField
+    private User user;
+
+    @RequiredField
     private String Name;
-    private String Description;
 
     // priority is in 4 levels, as 1 is the important && necessary , 4 is unimportant && unnecessary
+    @RequiredField
     private Integer Priority;
 
     // if status is done it will be true
+    @RequiredField
     private Boolean Status;
 
-    private User user;
+    private String Description;
+
 
     public Task(String name, String description, Integer priority, Boolean status, User user) {
         Name = name;

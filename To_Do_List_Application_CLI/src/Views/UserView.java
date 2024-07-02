@@ -19,11 +19,21 @@ public class UserView {
         System.out.println("Enter Your UserName : ");
         String username = scanner.nextLine();
 
+        if (username.equals("")){
+            System.out.println("username can't be empty, try agian");
+            registrationForCustomer();
+        }
+
         System.out.println("Enter Your Email : ");
         String email = scanner.nextLine();
 
         System.out.println("Enter Your password : ");
         String password = scanner.nextLine();
+
+        if (password.equals("")){
+            System.out.println("password can't be empty, try agian");
+            registrationForCustomer();
+        }
 
         UserController customerController = new UserController();
         User user = new User(username, email, password);

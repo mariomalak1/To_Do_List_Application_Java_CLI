@@ -1,13 +1,22 @@
 package Models;
 
+import Models.Validation.RequiredField;
+
 import java.util.Objects;
 
 public class User {
+
+    @RequiredField
     private Integer ID;
-    private Boolean Logged;
+
+    @RequiredField
     private String UserName;
-    private String Email;
+
+    @RequiredField
     private String Password;
+
+    private Boolean Logged;
+    private String Email;
 
     public User(String userName, String password, String email){
         this.setUserName(userName);
