@@ -43,16 +43,9 @@ public class UserDAO implements IUserDAO{
                 System.out.println("No User With This ID.");
                 return null;
             }
-            User user = new User();
-            user.setID(resultSet.getInt("ID"));
-            user.setUserName(resultSet.getString("username"));
-            user.setEmail(resultSet.getString("email"));
-            user.setLogged(resultSet.getBoolean("logged"));
-            user.setPassword(resultSet.getString("password"));
-            return user;
+            return extractUserFromResultSet(resultSet);
         } catch (SQLException e) {
             e.printStackTrace();
-//            System.out.println("Can't add this user right now, please check your database connection.");
         }
         return null;
     }
@@ -75,13 +68,7 @@ public class UserDAO implements IUserDAO{
             ResultSet resultSet = statement.executeQuery("select * from users");
             List<User> users = new ArrayList<>();
             while (resultSet.next()){
-                User user = new User();
-                user.setID(resultSet.getInt("ID"));
-                user.setUserName(resultSet.getString("username"));
-                user.setEmail(resultSet.getString("email"));
-                user.setLogged(resultSet.getBoolean("logged"));
-                user.setPassword(resultSet.getString("password"));
-                users.add(user);
+                users.add(extractUserFromResultSet(resultSet));
             }
 
             return users;
@@ -102,5 +89,18 @@ public class UserDAO implements IUserDAO{
             e.printStackTrace();
         }
         return null;
+    }
+
+
+    private User extractUserFromResultSet(ResultSet resultSet) throws SQLException {
+        int id = resultSet.getInt("ID");
+        String username = resultSet.getString("username");
+        String email = resultSet.getString("email");
+        String password = resultSet.getString("Password");
+        Boolean logged = resultSet.getBoolean("logged");
+
+        User user = new User(id, logged, username, email, password);
+        user.setID(id);
+        return user;
     }
 }
