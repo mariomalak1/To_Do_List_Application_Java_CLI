@@ -10,26 +10,40 @@ import java.util.List;
 public class TaskDAO implements ITaskDAO {
     private final DataBaseManager dataBaseManager;
 
-    TaskDAO(){
+    public TaskDAO(){
         dataBaseManager = DataBaseManager.getDataBaseManager();
     }
 
     @Override
-    public void add(Task task) {
+    public Task add(Task task) {
         Connection connection = dataBaseManager.getConnection();
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO tasks (name, description, status, priority) VALUES (?, ?, ?, ?)");
+            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO tasks (name, description, status, priority, userID) VALUES (?, ?, ?, ?, ?)");
             preparedStatement.setString(1, task.getName());
             preparedStatement.setString(2, task.getDescription());
             preparedStatement.setBoolean(3, task.getStatus());
             preparedStatement.setInt(4, task.getPriority());
+            preparedStatement.setInt(5, task.getUser().getID());
             int recordsAffected = preparedStatement.executeUpdate();
             if (recordsAffected == 0){
                 System.out.println("Can't add this task right now, please check your database connection.");
+                return null;
+            }
+            // to get generated ID for task
+            try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    int generatedID = generatedKeys.getInt(1);
+                    task.setID(generatedID);
+                    return task;
+                } else {
+                    System.out.println("No ID get to task from, as it failed to save it.");
+                    return null;
+                }
             }
         } catch (SQLException e) {
             System.out.println("Can't add this task right now, please check your database connection.");
         }
+        return null;
     }
 
     @Override
@@ -64,7 +78,7 @@ public class TaskDAO implements ITaskDAO {
     }
 
     @Override
-    public Boolean update(Task task1, Task task2) {
+    public Boolean update(int taskID, Task task2) {
         return null;
     }
 
@@ -82,6 +96,7 @@ public class TaskDAO implements ITaskDAO {
                 task.setDescription(resultSet.getString("description"));
                 task.setPriority(resultSet.getInt("priority"));
                 task.setStatus(resultSet.getBoolean("status"));
+                task.setUser(user);
                 tasks.add(task);
             }
 
