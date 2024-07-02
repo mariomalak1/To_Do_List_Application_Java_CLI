@@ -56,7 +56,7 @@ public class UserDAO implements IUserDAO{
         Connection connection = dataBaseManager.getConnection();
         try {
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("select * from users where username = " + username);
+            ResultSet resultSet = statement.executeQuery("select * from users where username = " + "'" + username + "'");
 
             if (!resultSet.next()){
                 return null;
@@ -77,8 +77,13 @@ public class UserDAO implements IUserDAO{
     public Boolean update(String username, User user1) {
         Connection connection = dataBaseManager.getConnection();
         try {
-            Statement statement = connection.createStatement();
-            int rowAffected = statement.executeUpdate("UPDATE users SET username = '?', logged = ?, password = ?, email = ? where username = ?");
+            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE users SET username = ?, email = ?, password = ?, logged = ? WHERE username = ?");
+            preparedStatement.setString(1, user1.getUserName());
+            preparedStatement.setString(2, user1.getEmail());
+            preparedStatement.setString(3, user1.getPassword());
+            preparedStatement.setBoolean(4, user1.getLogged());
+            preparedStatement.setString(5, username);
+            int rowAffected = preparedStatement.executeUpdate();
             return rowAffected != 0;
         } catch (SQLException e) {
             e.printStackTrace();

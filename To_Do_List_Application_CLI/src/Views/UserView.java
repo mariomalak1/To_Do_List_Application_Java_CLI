@@ -6,7 +6,13 @@ import Models.User;
 import java.util.Scanner;
 
 public class UserView {
-    public static void registrationForCustomer(){
+    User user;
+
+    public UserView(User user){
+        this.user = user;
+    }
+
+    public void registrationForCustomer(){
         Scanner scanner = new Scanner(System.in);
         System.out.println("Welcome in Registration page");
 
@@ -32,7 +38,7 @@ public class UserView {
     }
 
 
-    public static void login(){
+    public void login(){
         Scanner scanner = new Scanner(System.in);
         System.out.println("Welcome in Login Page");
 
@@ -46,17 +52,40 @@ public class UserView {
         User user = userController.login(username, password);
 
         if (user != null){
-            HomePage(user);
+            this.user = user;
+            this.HomePage();
         }
     }
 
-    public static void Logout(Models.User user){
-        UserController.logout(user);
+    public void logout(){
+        UserController.logout(this.user);
         MainView.runApplication();
     }
 
-    public static void HomePage(User user){
-
+    public void HomePage(){
+        int response;
+        System.out.println("Hello in Toffee Project");
+        while (true) {
+            System.out.println("--------------------");
+            System.out.println("1- Add Task");
+            System.out.println("2- Get All Tasks");
+            System.out.println("0- Logout");
+            System.out.println("--------------------");
+            System.out.print("What's Your Response : ");
+            Scanner sc = new Scanner(System.in);
+            String stringResponse = sc.nextLine();
+            if (MainView.isNumeric(stringResponse)) {
+                response = Integer.parseInt(stringResponse);
+                redirectInput(response);
+            } else {
+                System.out.println("Please enter valid Response");
+            }
+        }
     }
 
+    private void redirectInput(int response){
+        switch (response) {
+            case 0 -> this.logout();
+        }
+    }
 }

@@ -31,6 +31,7 @@ public class UserController {
             user.setLogged(true);
             if (userDAO.update(user.getUserName(), user)){
                 System.out.println("Successfully Login");
+                return user;
             }else{
                 System.out.println("Something wrong in data.");
             }
