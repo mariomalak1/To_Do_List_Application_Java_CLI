@@ -5,19 +5,25 @@ import java.util.Objects;
 public class User {
     private Integer ID;
     private Boolean Logged;
+    private String UserName;
     private String Email;
     private String Password;
 
-
-    public User(Integer ID, Boolean logged, String email, String password) {
+    public User(String userName, String password, String email){
+        this.setUserName(userName);
+        this.setPassword(password);
+        this.setEmail(email);
+    }
+    public User(Integer ID, Boolean logged, String userName, String email, String password) {
         this.ID = ID;
         Logged = logged;
+        UserName = userName;
         Email = email;
         Password = password;
     }
 
     public User() {
-        this(null, null, null, null);
+        this(null, null, null, null, null);
     }
 
     public Integer getID() {
@@ -30,6 +36,29 @@ public class User {
 
     public Boolean getLogged() {
         return Logged;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "ID=" + ID +
+                ", Logged=" + Logged +
+                ", UserName='" + UserName + '\'' +
+                ", Email='" + Email + '\'' +
+                ", Password='" + Password + '\'' +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User user)) return false;
+        return getID().equals(user.getID()) && Objects.equals(getLogged(), user.getLogged()) && getUserName().equals(user.getUserName()) && Objects.equals(getEmail(), user.getEmail()) && Objects.equals(getPassword(), user.getPassword());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getID(), getLogged(), getUserName(), getEmail(), getPassword());
     }
 
     public void setLogged(Boolean logged) {
@@ -52,26 +81,12 @@ public class User {
         Password = password;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "ID=" + ID +
-                ", Logged=" + Logged +
-                ", Email='" + Email + '\'' +
-                ", Password='" + Password + '\'' +
-                '}';
+
+    public String getUserName() {
+        return UserName;
     }
 
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof User user)) return false;
-        return getID().equals(user.getID()) && Objects.equals(getLogged(), user.getLogged()) && Objects.equals(getEmail(), user.getEmail()) && Objects.equals(getPassword(), user.getPassword());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getID(), getLogged(), getEmail(), getPassword());
+    public void setUserName(String userName) {
+        UserName = userName;
     }
 }

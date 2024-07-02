@@ -53,12 +53,6 @@ public class DataBaseManager {
     }
 
     public Connection getConnection(){
-        try {
-            System.out.println("is connection closed : " + connection.isClosed());
-        } catch (SQLException e) {
-            System.out.println("from get connection.........................");
-            e.printStackTrace();
-        }
         return connection;
     }
 }

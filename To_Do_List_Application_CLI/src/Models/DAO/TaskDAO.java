@@ -1,10 +1,13 @@
 package Models.DAO;
 
 import Models.Task;
+import Models.User;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
-public class TaskDAO implements IModelDAO<Task>{
+public class TaskDAO implements ITaskDAO {
     private final DataBaseManager dataBaseManager;
 
     TaskDAO(){
@@ -62,6 +65,31 @@ public class TaskDAO implements IModelDAO<Task>{
 
     @Override
     public Boolean update(Task task1, Task task2) {
+        return null;
+    }
+
+    @Override
+    public List<Task> getAllTaskForUser(User user) {
+        Connection connection = dataBaseManager.getConnection();
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("select * from tasks where userID = " + user.getID());
+            List<Task> tasks = new ArrayList<>();
+            while (resultSet.next()){
+                Task task = new Task();
+                task.setID(resultSet.getInt("ID"));
+                task.setName(resultSet.getString("name"));
+                task.setDescription(resultSet.getString("description"));
+                task.setPriority(resultSet.getInt("priority"));
+                task.setStatus(resultSet.getBoolean("status"));
+                tasks.add(task);
+            }
+
+
+            return tasks;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 }

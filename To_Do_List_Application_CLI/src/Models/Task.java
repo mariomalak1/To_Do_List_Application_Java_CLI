@@ -31,7 +31,7 @@ public class Task {
                 ", Description='" + Description + '\'' +
                 ", Priority=" + Priority +
                 ", Status=" + Status +
-                ", User_ID=" + user.getID() +
+                ", User_ID=" + (user != null? user.getID() : "" ) +
                 '}';
     }
 
