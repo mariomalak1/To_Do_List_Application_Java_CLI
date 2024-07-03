@@ -3,6 +3,31 @@ package Models;
 import java.util.Objects;
 
 public class Task {
+    public static enum Priorities{
+        IMPORTANT_NECESSARY(1),
+        IMPORTANT_UNNECESSARY(2),
+        UNIMPORTANT_NECESSARY(3),
+        UNIMPORTANT_UNNECESSARY(4);
+
+        private final int value;
+
+        Priorities(int value) {
+            this.value = value;
+        }
+
+        public static Priorities getPriorityByValue(int v){
+            for (Priorities priority : Priorities.values()) {
+                if (priority.getValue() == v) {
+                    return priority;
+                }
+            }
+            return null;
+        }
+
+        public int getValue() {
+            return value;
+        }
+    }
 
     private Integer ID;
 
@@ -21,6 +46,18 @@ public class Task {
 
     private String Description;
 
+
+    public Task(){
+        this(null, null, null, null, null, null);
+    }
+
+    public Task(User user, String name, Integer priority, Boolean status, String description) {
+        this.user = user;
+        Name = name;
+        Priority = priority;
+        Status = status;
+        Description = description;
+    }
 
     public Task(String name, String description, Integer priority, Boolean status, User user) {
         Name = name;
@@ -61,10 +98,6 @@ public class Task {
         Status = status;
         Priority = priority;
         this.user = user;
-    }
-
-    public Task(){
-        this(null, null, null, null, null);
     }
 
     public Integer getID() {

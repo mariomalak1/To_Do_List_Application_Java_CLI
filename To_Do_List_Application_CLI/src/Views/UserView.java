@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 public class UserView {
     User user;
+    UserController userController;
 
     public UserView(User user){
         this.user = user;
@@ -30,10 +31,8 @@ public class UserView {
         System.out.println("Enter Your password : ");
         String password = scanner.nextLine();
 
-        UserController customerController = new UserController();
         User user = new User(username, password, email);
-        System.out.println(user);
-        customerController.createUser(user);
+        userController.createUser(user);
     }
 
 
@@ -47,7 +46,6 @@ public class UserView {
         System.out.println("Enter Your Password : ");
         String password = scanner.nextLine();
 
-        UserController userController = new UserController();
         User user = userController.login(username, password);
 
         if (user != null){
@@ -57,7 +55,7 @@ public class UserView {
     }
 
     public void logout(){
-        UserController.logout(this.user);
+        userController.logout(this.user);
         MainView.runApplication();
     }
 

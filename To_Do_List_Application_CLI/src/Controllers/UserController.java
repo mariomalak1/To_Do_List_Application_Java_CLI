@@ -6,7 +6,6 @@ import Models.Validation.ValidateEntity;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.sql.SQLException;
 import java.util.List;
 
 public class UserController {
@@ -90,11 +89,10 @@ public class UserController {
         return null;
     }
 
-    public static Boolean logout(User user){
+    public void logout(User user){
         user.setLogged(false);
-        System.out.println("Logout successfully.");
         userDAO.update(user.getUserName(), user);
-        return true;
+        System.out.println("Logout successfully.");
     }
 
 }
