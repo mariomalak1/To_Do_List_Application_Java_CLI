@@ -65,29 +65,52 @@ public class TaskView {
 
         Task task = taskController.getTaskByID(id);
         if (task != null){
-            System.out.println(task);
+            this.changeSpecificTask(task);
         }
     }
 
-    public void markAsComplete(){
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter Task ID: ");
-        String IdString = scanner.nextLine();
-        if (!MainView.isNumeric(IdString)){
-            System.out.println("Please enter valid value.");
-            return;
-        }
-        int id = Integer.parseInt(IdString);
-
-        Task task = taskController.getTaskByID(id);
-        if (task != null){
+    public void changeTaskStatus(Task task){
+        if (task.getStatus()){
+            task.setStatus(false);
+        }else{
             task.setStatus(true);
-//            taskController;
+        }
+        taskController.updateTask(task.getID(), task);
+    }
+
+    public void changeSpecificTask(Task task){
+        int response;
+        System.out.println(task);
+        while (true) {
+            System.out.println("--------------------");
+            System.out.println("1- Display Task Details");
+            System.out.println("2- Change Task Status");
+            System.out.println("3- Change Task Priority");
+            System.out.println("4- Change Task Description");
+            System.out.println("5- Change Task Name");
+            System.out.println("6- Go Home");
+            System.out.println("--------------------");
+            System.out.print("What's Your Response : ");
+            Scanner sc = new Scanner(System.in);
+            String stringResponse = sc.nextLine();
+            if (MainView.isNumeric(stringResponse)) {
+                response = Integer.parseInt(stringResponse);
+                redirectInput(response, task);
+            } else {
+                System.out.println("Please enter valid Response");
+            }
         }
     }
 
-    public void changeSpecificTask(){
-
+    private void redirectInput(int response, Task task){
+        switch (response) {
+            case 1 -> System.out.println(task);
+            case 2 -> this.changeTaskStatus(task);
+            case 3 -> this.changeSpecificTask(task);
+//            case 4 -> this.changeSpecificTask(task);
+//            case 5 -> this.changeSpecificTask(task);
+            case 6 -> new UserView(user).HomePage();
+        }
     }
-
 }
+

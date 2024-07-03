@@ -53,6 +53,7 @@ public class TaskController {
         if (task1 == null){
             System.out.println("No task with this id");
         }
+        taskDAO.update(taskID, task2);
         return null;
     }
 
