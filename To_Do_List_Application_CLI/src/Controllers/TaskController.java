@@ -48,5 +48,12 @@ public class TaskController {
         return null;
     }
 
+    public Task updateTask(Integer taskID, Task task2){
+        Task task1 = taskDAO.get(taskID);
+        if (task1 == null){
+            System.out.println("No task with this id");
+        }
+        return null;
+    }
 
 }

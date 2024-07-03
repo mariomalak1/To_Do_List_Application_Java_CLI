@@ -55,7 +55,6 @@ public class UserDAO implements IUserDAO{
             ResultSet resultSet = statement.executeQuery("select * from users where id = " + id);
 
             if (!resultSet.next()){
-                System.out.println("No User With This ID.");
                 return null;
             }
             return extractUserFromResultSet(resultSet);

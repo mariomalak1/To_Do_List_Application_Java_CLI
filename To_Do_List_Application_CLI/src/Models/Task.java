@@ -1,8 +1,58 @@
 package Models;
 
 import java.util.Objects;
+import java.time.LocalDateTime;
 
 public class Task {
+    private Integer ID;
+
+    private User user;
+
+    private String Name;
+
+    // priority is in 4 levels, as 1 is the important && necessary , 4 is unimportant && unnecessary
+    private Integer Priority;
+
+    // if status is done it will be true
+    private Boolean Status;
+
+    private String Description;
+
+    @Override
+    public String toString() {
+        return "Task{" +
+                "ID=" + ID +
+                ", user=" + user +
+                ", Name='" + Name + '\'' +
+                ", Priority=" + Priority +
+                ", Status=" + Status +
+                ", Description='" + Description + '\'' +
+                ", DateTime=" + DateTime +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Task task)) return false;
+        return getID().equals(task.getID()) && Objects.equals(getUser(), task.getUser()) && Objects.equals(getName(), task.getName()) && Objects.equals(getPriority(), task.getPriority()) && Objects.equals(getStatus(), task.getStatus()) && Objects.equals(getDescription(), task.getDescription()) && Objects.equals(getDateTime(), task.getDateTime());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getID(), getUser(), getName(), getPriority(), getStatus(), getDescription(), getDateTime());
+    }
+
+    private LocalDateTime DateTime;
+
+    public LocalDateTime getDateTime() {
+        return DateTime;
+    }
+
+    public void setDateTime(LocalDateTime dateTime) {
+        DateTime = dateTime;
+    }
+
     public static enum Priorities{
         IMPORTANT_NECESSARY(1),
         IMPORTANT_UNNECESSARY(2),
@@ -29,75 +79,27 @@ public class Task {
         }
     }
 
-    private Integer ID;
-
-    private User user;
-
-
-    private String Name;
-
-    // priority is in 4 levels, as 1 is the important && necessary , 4 is unimportant && unnecessary
-
-    private Integer Priority;
-
-    // if status is done it will be true
-
-    private Boolean Status;
-
-    private String Description;
-
-
     public Task(){
         this(null, null, null, null, null, null);
     }
 
-    public Task(User user, String name, Integer priority, Boolean status, String description) {
+    public Task(User user, String name, Integer priority, Boolean status, String description, LocalDateTime dateTime) {
         this.user = user;
         Name = name;
         Priority = priority;
         Status = status;
         Description = description;
+        DateTime = dateTime;
     }
 
-    public Task(String name, String description, Integer priority, Boolean status, User user) {
-        Name = name;
-        Description = description;
-        Priority = priority;
-        Status = status;
-        this.user = user;
-    }
-
-    @Override
-    public String toString() {
-        return "Task{" +
-                "ID=" + ID +
-                ", Name='" + Name + '\'' +
-                ", Description='" + Description + '\'' +
-                ", Priority=" + Priority +
-                ", Status=" + Status +
-                ", User_ID=" + (user != null? user.getID() : "" ) +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Task task)) return false;
-        return getID().equals(task.getID()) && getName().equals(task.getName()) && Objects.equals(getDescription(), task.getDescription()) && Objects.equals(getPriority(), task.getPriority()) && Objects.equals(getStatus(), task.getStatus()) && Objects.equals(getUser(), task.getUser());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getID(), getName(), getDescription(), getPriority(), getStatus());
-    }
-
-    public Task(Integer ID, String name, String description, Boolean status, Integer priority, User user) {
+    public Task(Integer ID, String name, String description, Boolean status, Integer priority, User user, LocalDateTime dateTime) {
         this.ID = ID;
         Name = name;
         Description = description;
         Status = status;
         Priority = priority;
         this.user = user;
+        DateTime = dateTime;
     }
 
     public Integer getID() {

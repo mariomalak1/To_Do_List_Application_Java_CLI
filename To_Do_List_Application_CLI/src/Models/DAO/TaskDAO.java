@@ -79,7 +79,21 @@ public class TaskDAO implements ITaskDAO {
 
     @Override
     public Boolean update(int taskID, Task task2) {
-        return null;
+        Connection connection = dataBaseManager.getConnection();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE tasks SET name = ?, description = ?, status = ?, priority = ? WHERE userID = ? and ID = ?");
+            preparedStatement.setString(1, task2.getName());
+            preparedStatement.setString(2, task2.getDescription());
+            preparedStatement.setBoolean(3, task2.getStatus());
+            preparedStatement.setInt(4, task2.getPriority());
+            preparedStatement.setInt(5, task2.getUser().getID());
+            preparedStatement.setInt(6, task2.getID());
+            int rowAffected = preparedStatement.executeUpdate();
+            return rowAffected != 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     @Override

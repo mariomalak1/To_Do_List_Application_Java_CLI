@@ -61,12 +61,16 @@ public class UserView {
 
     public void HomePage(){
         int response;
-        System.out.println("Hello in Toffee Project");
+        System.out.println("Hello in Main Page");
         while (true) {
             System.out.println("--------------------");
             System.out.println("1- Add Task");
             System.out.println("2- Get All Tasks");
-            System.out.println("0- Logout");
+            System.out.println("3- Mark Task As Complete");
+            System.out.println("4- Get Specific Task Details");
+            System.out.println("5- Get All Tasks Are Done");
+            System.out.println("6- Get All Tasks With Specific Priority");
+            System.out.println("7- Logout");
             System.out.println("--------------------");
             System.out.print("What's Your Response : ");
             Scanner sc = new Scanner(System.in);
@@ -81,8 +85,15 @@ public class UserView {
     }
 
     private void redirectInput(int response){
+        TaskView taskView = new TaskView(user);
         switch (response) {
             case 0 -> this.logout();
+            case 1 -> taskView.createTask();
+            case 2 -> taskView.showAllTasks();
+            case 3 -> taskView.showAllTasks();
+            case 4 -> taskView.showSpecificTask();
+//            case 5 -> taskView.showAllTasks();
+//            case 6 -> taskView.showAllTasks();
         }
     }
 }

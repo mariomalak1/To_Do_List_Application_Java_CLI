@@ -4,12 +4,13 @@ import Controllers.TaskController;
 import Models.Task;
 import Models.User;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Scanner;
 
 public class TaskView {
     private User user;
-    TaskController taskController;
+    private TaskController taskController;
 
     public TaskView(User u){
         this.user = u;
@@ -20,7 +21,7 @@ public class TaskView {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Welcome in Create New Task page");
 
-        System.out.println("Enter Your Task Name : ");
+        System.out.print("Enter Your Task Name : ");
         String taskName = scanner.nextLine();
 
         if (taskName.equals("")){
@@ -28,10 +29,10 @@ public class TaskView {
             createTask();
         }
 
-        System.out.println("Enter description for it : ");
+        System.out.print("Enter description for it : ");
         String description = scanner.nextLine();
 
-        System.out.println("Enter description for it : ");
+        System.out.print("Enter description for it : ");
         String priorityString = scanner.nextLine();
 
         if (!MainView.isNumeric(priorityString)){
@@ -41,7 +42,7 @@ public class TaskView {
 
         Integer priority = Integer.parseInt(priorityString);
 
-        Task task =  new Task(user, taskName, priority, false, description);
+        Task task =  new Task(user, taskName, priority, false, description, LocalDateTime.now());
         taskController.createTask(task);
     }
 
@@ -52,7 +53,41 @@ public class TaskView {
         }
     }
 
+    public void showSpecificTask(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter Task ID: ");
+        String IdString = scanner.nextLine();
+        if (!MainView.isNumeric(IdString)){
+            System.out.println("Please enter valid value.");
+            return;
+        }
+        int id = Integer.parseInt(IdString);
 
+        Task task = taskController.getTaskByID(id);
+        if (task != null){
+            System.out.println(task);
+        }
+    }
 
+    public void markAsComplete(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter Task ID: ");
+        String IdString = scanner.nextLine();
+        if (!MainView.isNumeric(IdString)){
+            System.out.println("Please enter valid value.");
+            return;
+        }
+        int id = Integer.parseInt(IdString);
+
+        Task task = taskController.getTaskByID(id);
+        if (task != null){
+            task.setStatus(true);
+//            taskController;
+        }
+    }
+
+    public void changeSpecificTask(){
+
+    }
 
 }
