@@ -22,11 +22,6 @@ public class Authorization {
         System.out.println("Enter Your Email : ");
         String email = scanner.nextLine();
 
-        if (email.equals("")){
-            // Consume the newline character left by nextInt()
-            scanner.nextLine();
-        }
-
         System.out.println("Enter Your password : ");
         String password = scanner.nextLine();
 

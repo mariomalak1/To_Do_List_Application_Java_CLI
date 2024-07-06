@@ -31,7 +31,6 @@ public class UserDAO implements IUserDAO{
             // to get generated ID for task
             try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
-                    System.out.println("generated");
                     int generatedID = generatedKeys.getInt(1);
                     user.setID(generatedID);
                     return user;
