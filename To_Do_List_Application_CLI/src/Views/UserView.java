@@ -72,8 +72,10 @@ public class UserView {
             System.out.println("2- Get All Tasks");
             System.out.println("3- Get Specific Task Details, and Change it");
             System.out.println("4- Get All Completed Tasks");
-            System.out.println("4- Get All Tasks With Specific Priority");
-            System.out.println("5- Logout");
+            System.out.println("5- Get All Un-Completed Tasks");
+            System.out.println("6- Get All Tasks With Specific Priority");
+            System.out.println("7- Search with text in name and description");
+            System.out.println("8- Logout");
             System.out.println("--------------------");
             System.out.print("What's Your Response : ");
             Scanner sc = new Scanner(System.in);
@@ -88,14 +90,18 @@ public class UserView {
     }
 
     private void redirectInput(int response){
-        TaskView taskView = new TaskView(user);
+        SpecificTaskView specificTaskView = new SpecificTaskView(user);
+        TasksView taskView = new TasksView(user);
         switch (response) {
             case 0 -> this.logout();
             case 1 -> taskView.createTask();
             case 2 -> taskView.showAllTasks();
-            case 3 -> taskView.showSpecificTask();
+            // get specific task, and can make some changes in it
+            case 3 -> specificTaskView.showSpecificTask();
             case 4 -> taskView.getCompletedTasks();
             case 5 -> taskView.getUnCompletedTasks();
+            case 6 -> taskView.getTasksWithSpecificPriority();
+            case 7 -> taskView.getTasksWithSearchInName_Description();
         }
     }
 }
