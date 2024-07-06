@@ -100,12 +100,7 @@ public class TasksView {
         if (priority < 0 || priority > 4){
             System.out.println("please Enter Valid Priority Level From 0 to 4.");
             new UserView(user).HomePage();
-            return;
         }
-
-//        task.setPriority(priority);
-//        taskController.updateTask(task.getID(), task);
-//        System.out.println("task Changed.");
     }
 
     public void getTasksWithSearchInName_Description(){
