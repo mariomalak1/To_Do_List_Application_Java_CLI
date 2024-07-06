@@ -1,0 +1,46 @@
+-- Inserting tasks for User 21
+INSERT INTO `tasks` (`ID`, `name`, `description`, `status`, `priority`, `userID`) VALUES 
+(NULL, 'Complete Project Documentation', 'Complete the documentation for the project.', '1', '1', 21),
+(NULL, 'Fix Bug in Module A', 'Fix the critical bug in module A as reported by QA.', '1', '2', 21),
+(NULL, 'Update User Guide', 'Revise and update the user guide to reflect recent changes.', '1', '3', 21),
+(NULL, 'Team Meeting Preparation', 'Prepare the agenda and materials for the team meeting.', '1', '4', 21),
+(NULL, 'Research New Technologies', 'Look into new technologies for potential integration.', '0', '1', 21),
+(NULL, 'Client Feedback Analysis', 'Analyze the feedback received from the client.', '0', '2', 21),
+(NULL, 'Create Performance Reports', 'Generate performance reports for Q2.', '0', '3', 21),
+(NULL, 'Develop Marketing Plan', 'Outline the marketing plan for the upcoming quarter.', '0', '4', 21),
+(NULL, 'Code Review', 'Conduct code reviews for the recent pull requests.', '0', '2', 21),
+(NULL, 'Optimize Database', 'Optimize the database for better performance.', '0', '3', 21),
+(NULL, 'Update Backend APIs', 'Update backend APIs to improve performance.', '0', '1', 21),
+(NULL, 'Design New UI Components', 'Work on designing new UI components for the app.', '0', '2', 21),
+(NULL, 'Refactor Codebase', 'Refactor the existing codebase for better maintainability.', '0', '3', 21),
+(NULL, 'Prepare Demo', 'Prepare the product demo for the upcoming client meeting.', '0', '4', 21),
+(NULL, 'Implement OAuth', 'Implement OAuth authentication for the application.', '0', '1', 21),
+(NULL, 'Database Backup', 'Ensure regular backups of the database are taken.', '0', '2', 21),
+(NULL, 'User Acceptance Testing', 'Coordinate with users for acceptance testing.', '0', '3', 21),
+(NULL, 'Release Notes', 'Prepare release notes for the new version.', '0', '4', 21),
+(NULL, 'Performance Testing', 'Conduct performance testing for the new features.', '0', '1', 21),
+(NULL, 'Security Patch', 'Apply the latest security patches.', '0', '2', 21);
+
+
+-- Inserting tasks for User 22
+INSERT INTO `tasks` (`ID`, `name`, `description`, `status`, `priority`, `userID`) VALUES 
+(NULL, 'Update Website Content', 'Update the content on the company website.', '1', '1', 22),
+(NULL, 'Implement New Features', 'Develop and implement new features as per the roadmap.', '1', '2', 22),
+(NULL, 'Security Audit', 'Perform a security audit of the application.', '1', '3', 22),
+(NULL, 'Employee Training Session', 'Organize a training session for new employees.', '1', '4', 22),
+(NULL, 'Market Research', 'Conduct market research for the new product line.', '0', '1', 22),
+(NULL, 'Customer Support Follow-up', 'Follow up with customers regarding their support tickets.', '0', '2', 22),
+(NULL, 'Social Media Strategy', 'Develop a social media strategy for the next campaign.', '0', '3', 22),
+(NULL, 'Budget Planning', 'Plan the budget for the next fiscal year.', '0', '4', 22),
+(NULL, 'Test Automation', 'Work on automating the testing processes.', '0', '2', 22),
+(NULL, 'Backup Data', 'Ensure that all important data is backed up.', '0', '3', 22),
+(NULL, 'Create Marketing Materials', 'Design and create marketing materials for the new product.', '0', '1', 22),
+(NULL, 'Plan Event', 'Plan the upcoming promotional event.', '0', '2', 22),
+(NULL, 'Review Contracts', 'Review and update contracts with vendors.', '0', '3', 22),
+(NULL, 'Update CRM', 'Update the CRM with the latest customer information.', '0', '4', 22),
+(NULL, 'SEO Optimization', 'Optimize the website for search engines.', '0', '1', 22),
+(NULL, 'Content Calendar', 'Create a content calendar for social media posts.', '0', '2', 22),
+(NULL, 'Email Campaign', 'Prepare and send out the monthly email campaign.', '0', '3', 22),
+(NULL, 'Analyze Competitors', 'Analyze competitors to identify strengths and weaknesses.', '0', '4', 22),
+(NULL, 'Customer Surveys', 'Conduct customer surveys to gather feedback.', '0', '1', 22),
+(NULL, 'Develop Mobile App', 'Start development of the new mobile app.', '0', '2', 22);

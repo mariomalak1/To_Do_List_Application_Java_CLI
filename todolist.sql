@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 02, 2024 at 03:56 AM
+-- Generation Time: Jul 06, 2024 at 04:54 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -18,29 +18,10 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `todolist`
+-- Database: `todolistmario`
 --
-
--- --------------------------------------------------------
-
---
--- Table structure for table `difficulty`
---
-
-CREATE TABLE `difficulty` (
-  `ID` int(11) NOT NULL,
-  `name` varchar(25) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `difficulty`
---
-
-INSERT INTO `difficulty` (`ID`, `name`) VALUES
-(1, 'important-necessary'),
-(2, 'important-unnecessary'),
-(3, 'unimportant-necessary'),
-(4, 'unimportant-unnecessary');
+CREATE DATABASE IF NOT EXISTS `todolistmario` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `todolistmario`;
 
 -- --------------------------------------------------------
 
@@ -54,6 +35,7 @@ CREATE TABLE `tasks` (
   `description` text DEFAULT NULL,
   `status` tinyint(1) NOT NULL DEFAULT 0,
   `priority` int(11) NOT NULL DEFAULT 4,
+  `time` date DEFAULT current_timestamp(),
   `userID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -97,13 +79,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `tasks`
 --
 ALTER TABLE `tasks`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- Constraints for dumped tables
