@@ -9,6 +9,10 @@ public class UserView {
     User user;
     UserController userController;
 
+    public UserView(){
+        userController = new UserController();
+    }
+
     public UserView(User user){
         this.user = user;
     }
@@ -67,7 +71,7 @@ public class UserView {
             System.out.println("1- Add Task");
             System.out.println("2- Get All Tasks");
             System.out.println("3- Get Specific Task Details, and Change it");
-            System.out.println("4- Get All Tasks Are Done");
+            System.out.println("4- Get All Completed Tasks");
             System.out.println("4- Get All Tasks With Specific Priority");
             System.out.println("5- Logout");
             System.out.println("--------------------");
@@ -90,9 +94,8 @@ public class UserView {
             case 1 -> taskView.createTask();
             case 2 -> taskView.showAllTasks();
             case 3 -> taskView.showSpecificTask();
-//            case 4 -> taskView.showSpecificTask();
-//            case 5 -> taskView.showAllTasks();
-//            case 6 -> taskView.showAllTasks();
+            case 4 -> taskView.getCompletedTasks();
+            case 5 -> taskView.getUnCompletedTasks();
         }
     }
 }

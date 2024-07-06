@@ -14,8 +14,8 @@ public class TaskView {
 
     public TaskView(User u){
         this.user = u;
+        taskController = new TaskController(this.user);
     }
-
 
     public void createTask(){
         Scanner scanner = new Scanner(System.in);
@@ -70,12 +70,83 @@ public class TaskView {
     }
 
     public void changeTaskStatus(Task task){
-        if (task.getStatus()){
-            task.setStatus(false);
-        }else{
-            task.setStatus(true);
-        }
+        task.setStatus(!task.getStatus());
         taskController.updateTask(task.getID(), task);
+    }
+
+    public void changeTaskPriority(Task task){
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter Task New Priority: ");
+        String priorityString = scanner.nextLine();
+        if (!MainView.isNumeric(priorityString)){
+            System.out.println("Please enter valid value.");
+            return;
+        }
+        int priority = Integer.parseInt(priorityString);
+
+        if (priority < 0 || priority > 4){
+            System.out.println("please Enter Valid Priority Level From 0 to 4.");
+            changeSpecificTask(task);
+            return;
+        }
+
+        task.setPriority(priority);
+        taskController.updateTask(task.getID(), task);
+        System.out.println("task Changed.");
+    }
+
+    public void changeTaskDescription(Task task){
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter Task New Description: ");
+        String description = scanner.nextLine();
+        task.setDescription(description);
+        taskController.updateTask(task.getID(), task);
+        System.out.println("task Changed.");
+    }
+
+    public void changeTaskName(Task task){
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter Task New Name : ");
+        String name = scanner.nextLine();
+        if (name.equals("")){
+            System.out.println("Not Allowed To Make Task Name Empty.");
+            changeTaskName(task);
+            return;
+        }
+        task.setName(name);
+        taskController.updateTask(task.getID(), task);
+        System.out.println("task Changed.");
+    }
+
+    public void getCompletedTasks(){
+        List<Task> tasks = taskController.getCompletedTask();
+        if (tasks.size() == 0){
+            System.out.println("No Tasks Completed.");
+            return;
+        }
+        int i = 0;
+        for (Task task: tasks){
+            i++;
+            System.out.println("--------------------");
+            System.out.println("Task " + i + ":");
+            System.out.println(task);
+            System.out.println("--------------------");
+        }
+    }
+    public void getUnCompletedTasks(){
+        List<Task> tasks = taskController.getCompletedTask();
+        if (tasks.size() == 0){
+            System.out.println("No Tasks Completed.");
+            return;
+        }
+        int i = 0;
+        for (Task task: tasks){
+            i++;
+            System.out.println("--------------------");
+            System.out.println("Task " + i + ":");
+            System.out.println(task);
+            System.out.println("--------------------");
+        }
     }
 
     public void changeSpecificTask(Task task){
@@ -106,9 +177,9 @@ public class TaskView {
         switch (response) {
             case 1 -> System.out.println(task);
             case 2 -> this.changeTaskStatus(task);
-            case 3 -> this.changeSpecificTask(task);
-//            case 4 -> this.changeSpecificTask(task);
-//            case 5 -> this.changeSpecificTask(task);
+            case 3 -> this.changeTaskPriority(task);
+            case 4 -> this.changeTaskDescription(task);
+            case 5 -> this.changeTaskName(task);
             case 6 -> new UserView(user).HomePage();
         }
     }

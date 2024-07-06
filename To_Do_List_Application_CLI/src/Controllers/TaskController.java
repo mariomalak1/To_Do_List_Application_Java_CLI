@@ -45,16 +45,28 @@ public class TaskController {
     }
 
     public List<Task> getCompletedTask(){
-        return null;
+        return taskDAO.getTaskWithFiltration(this.user, null, null, true, null);
     }
 
-    public Task updateTask(Integer taskID, Task task2){
+    public List<Task> getUnCompletedTask(){
+        return taskDAO.getTaskWithFiltration(this.user, null, null, false, null);
+    }
+
+    public List<Task> getTasksWithSpecificPriority(int priority){
+        if (priority < 0 || priority > 4){
+            System.out.println("priority must in range 1 to 4.");
+            return null;
+        }
+        return taskDAO.getTaskWithFiltration(this.user, null, null, null, priority);
+    }
+
+
+    public void updateTask(Integer taskID, Task task2){
         Task task1 = taskDAO.get(taskID);
         if (task1 == null){
             System.out.println("No task with this id");
         }
         taskDAO.update(taskID, task2);
-        return null;
     }
 
 }
