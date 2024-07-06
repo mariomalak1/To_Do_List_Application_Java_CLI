@@ -15,10 +15,10 @@ public class MainView {
     }
 
     private static void redirectInput(int response){
-        UserView userView = new UserView(new User());
+        Authorization authorization = new Authorization();
         switch (response) {
-            case 1 -> userView.registrationForCustomer();
-            case 2 -> userView.login();
+            case 1 -> authorization.registrationForCustomer();
+            case 2 -> authorization.login();
             case 3 -> System.exit(0);
         }
     }
