@@ -1,5 +1,6 @@
 package Controllers;
 
+import Models.DAO.IUserDAO;
 import Models.User;
 import Models.DAO.UserDAO;
 import Models.Validation.ValidateEntity;
@@ -9,7 +10,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 public class UserController {
-    private static final UserDAO userDAO;
+    private static final IUserDAO userDAO;
 
     static {
         userDAO = new UserDAO();

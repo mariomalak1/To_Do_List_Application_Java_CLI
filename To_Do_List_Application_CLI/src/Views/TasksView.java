@@ -32,12 +32,12 @@ public class TasksView {
         System.out.print("Enter description for it : ");
         String description = scanner.nextLine();
 
-        System.out.print("Enter description for it : ");
+        System.out.print("Enter priority for it : ");
         String priorityString = scanner.nextLine();
 
         if (!MainView.isNumeric(priorityString)){
             System.out.println("Must enter numeric value for priority");
-            createTask();
+            return;
         }
 
         Integer priority = Integer.parseInt(priorityString);
@@ -48,41 +48,17 @@ public class TasksView {
 
     public void showAllTasks(){
         List<Task> tasks = taskController.getAllTaskForUser();
-        for (Task task: tasks){
-            System.out.println("Task Name : " + task.getName() + "Priority : " + Task.Priorities.getPriorityByValue(task.getPriority()) + "Status : " + task.getStatus());
-        }
+        printListOfTasks(tasks);
     }
 
     public void getCompletedTasks(){
         List<Task> tasks = taskController.getCompletedTask();
-        if (tasks.size() == 0){
-            System.out.println("No Tasks Completed.");
-            return;
-        }
-        int i = 0;
-        for (Task task: tasks){
-            i++;
-            System.out.println("--------------------");
-            System.out.println("Task " + i + ":");
-            System.out.println(task);
-            System.out.println("--------------------");
-        }
+        printListOfTasks(tasks);
     }
 
     public void getUnCompletedTasks(){
         List<Task> tasks = taskController.getUnCompletedTask();
-        if (tasks.size() == 0){
-            System.out.println("No Tasks Completed.");
-            return;
-        }
-        int i = 0;
-        for (Task task: tasks){
-            i++;
-            System.out.println("--------------------");
-            System.out.println("Task " + i + ":");
-            System.out.println(task);
-            System.out.println("--------------------");
-        }
+        printListOfTasks(tasks);
     }
 
     public void getTasksWithSpecificPriority(){
@@ -102,28 +78,19 @@ public class TasksView {
 
         List<Task> tasks = taskController.getTasksWithSpecificPriority(priority);
 
-        if (tasks.size() == 0){
-            System.out.println("No Tasks with this priority.");
-            return;
-        }
-
-        int i = 0;
-        for (Task task: tasks){
-            i++;
-            System.out.println("--------------------");
-            System.out.println("Task " + i + ":");
-            System.out.println(task);
-            System.out.println("--------------------");
-        }
+        printListOfTasks(tasks);
     }
 
     public void getTasksWithSearchInName_Description(){
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter priority you want to search from 1 to 4: ");
+        System.out.print("Enter search key you want to search with name or description: ");
         String searchKey = scanner.nextLine();
 
         List<Task> tasks = taskController.searchWithNameDescription(searchKey);
+        printListOfTasks(tasks);
+    }
 
+    private void printListOfTasks(List<Task> tasks){
         if (tasks.size() == 0){
             System.out.println("No Tasks with this search key.");
             return;

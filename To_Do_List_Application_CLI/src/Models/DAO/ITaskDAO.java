@@ -11,6 +11,8 @@ public interface ITaskDAO {
 
     Task get(int id);
 
+    Task getTaskForUser(int id, User user);
+
     Boolean delete(Task task);
 
     Boolean update(int taskID, Task task2);

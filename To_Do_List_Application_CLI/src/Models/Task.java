@@ -20,15 +20,17 @@ public class Task {
 
     @Override
     public String toString() {
-        return "Task{" +
+        String str = "Task{" +
                 "ID=" + ID +
-                ", user=" + user +
                 ", Name='" + Name + '\'' +
-                ", Priority=" + Priority +
-                ", Status=" + Status +
-                ", Description='" + Description + '\'' +
-                ", DateTime=" + DateTime +
-                '}';
+                ", Priority=" + Priorities.getPriorityByValue(this.Priority) +
+                ", Status=" + (Status ? "Complete" : "UnComplete") +
+                ", Description='" + Description + '\'';
+        if (DateTime != null){
+            str += ", Create at =" + DateTime;
+        }
+        str += '}';
+        return str;
     }
 
     @Override
@@ -63,6 +65,18 @@ public class Task {
 
         Priorities(int value) {
             this.value = value;
+        }
+
+        @Override
+        public String toString() {
+            String str = "";
+            switch (value){
+                case 1 -> str = "Important Necessary";
+                case 2 -> str = "Important UnNecessary";
+                case 3 -> str = "UnImportant Necessary";
+                case 4 -> str = "UnImportant UnNecessary";
+            }
+            return str;
         }
 
         public static Priorities getPriorityByValue(int v){

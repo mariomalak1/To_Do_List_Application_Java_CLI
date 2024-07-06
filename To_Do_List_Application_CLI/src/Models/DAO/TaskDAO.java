@@ -4,6 +4,7 @@ import Models.Task;
 import Models.User;
 
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,22 +55,20 @@ public class TaskDAO implements ITaskDAO {
             ResultSet resultSet = statement.executeQuery("select * from tasks where id = " + id);
 
             if (!resultSet.next()){
-                System.out.println("No Task With This ID.");
                 return null;
             }
-
-            Task task = new Task();
-            task.setID(resultSet.getInt("ID"));
-            task.setName(resultSet.getString("name"));
-            task.setDescription(resultSet.getString("description"));
-            task.setPriority(resultSet.getInt("priority"));
-            task.setStatus(resultSet.getBoolean("status"));
-            return task;
+            return extractTaskDataInModel(resultSet);
         } catch (SQLException e) {
-            e.printStackTrace();
-//            System.out.println("Can't add this task right now, please check your database connection.");
+            System.out.println("Can't add this task right now, please check your database connection.");
         }
         return null;
+    }
+
+    @Override
+    public Task getTaskForUser(int id, User user) {
+        Task task = this.get(id);
+        task.setUser(user);
+        return task;
     }
 
     @Override
@@ -142,12 +141,7 @@ public class TaskDAO implements ITaskDAO {
             ResultSet resultSet = preparedStatement.executeQuery();
             List<Task> tasks = new ArrayList<>();
             while (resultSet.next()){
-                Task task = new Task();
-                task.setID(resultSet.getInt("ID"));
-                task.setName(resultSet.getString("name"));
-                task.setDescription(resultSet.getString("description"));
-                task.setPriority(resultSet.getInt("priority"));
-                task.setStatus(resultSet.getBoolean("status"));
+                Task task = extractTaskDataInModel(resultSet);
                 task.setUser(user);
                 tasks.add(task);
             }
@@ -158,5 +152,20 @@ public class TaskDAO implements ITaskDAO {
             e.printStackTrace();
         }
         return null;
+    }
+
+    private Task extractTaskDataInModel(ResultSet resultSet) throws SQLException{
+        Task task = new Task();
+        try {
+            task.setID(resultSet.getInt("ID"));
+            task.setName(resultSet.getString("name"));
+            task.setDescription(resultSet.getString("description"));
+            task.setPriority(resultSet.getInt("priority"));
+            task.setStatus(resultSet.getBoolean("status"));
+            task.setDateTime((LocalDateTime)resultSet.getObject("datetime"));
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return task;
     }
 }

@@ -1,13 +1,15 @@
 package Controllers;
 
+import Models.DAO.ITaskDAO;
 import Models.DAO.TaskDAO;
 import Models.Task;
 import Models.User;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TaskController {
-    private static final TaskDAO taskDAO;
+    private static final ITaskDAO taskDAO;
     private final User user;
 
     public TaskController(User user){
@@ -28,7 +30,7 @@ public class TaskController {
     }
 
     public Task getTaskByID(int taskID){
-        Task task = taskDAO.get(taskID);
+        Task task = taskDAO.getTaskForUser(taskID, user);
         if (task == null){
             System.out.println("No Task With This ID.");
             return null;
@@ -62,7 +64,7 @@ public class TaskController {
 
 
     public void updateTask(Integer taskID, Task task2){
-        Task task1 = taskDAO.get(taskID);
+        Task task1 = taskDAO.getTaskForUser(taskID, user);
         if (task1 == null){
             System.out.println("No task with this id");
         }
@@ -71,6 +73,12 @@ public class TaskController {
 
 
     public List<Task> searchWithNameDescription(String searchKey){
-        return taskDAO.getTaskWithFiltration(user, searchKey, searchKey, null, null);
+        // get the return tasks from name search
+        List<Task> tasksSearchName = taskDAO.getTaskWithFiltration(user, searchKey, null, null, null);
+        List<Task> tasksSearchDescription = taskDAO.getTaskWithFiltration(user, null, searchKey, null, null);
+        List<Task> tasks = new ArrayList<>();
+        tasks.addAll(tasksSearchName);
+        tasks.addAll(tasksSearchDescription);
+        return tasks;
     }
 }

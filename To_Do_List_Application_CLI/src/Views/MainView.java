@@ -1,7 +1,5 @@
 package Views;
 
-import Models.User;
-
 import java.util.Scanner;
 
 public class MainView {

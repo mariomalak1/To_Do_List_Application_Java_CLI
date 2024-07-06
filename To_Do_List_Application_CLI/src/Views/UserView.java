@@ -22,7 +22,7 @@ public class UserView {
 
     public void HomePage(){
         int response;
-        System.out.println("Hello in DataBaseConnection Page");
+        System.out.println("Hello in Home Page");
         while (true) {
             System.out.println("--------------------");
             System.out.println("1- Add Task");
