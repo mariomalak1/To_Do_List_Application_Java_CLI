@@ -122,6 +122,20 @@ public class TasksView {
         System.out.print("Enter priority you want to search from 1 to 4: ");
         String searchKey = scanner.nextLine();
 
+        List<Task> tasks = taskController.searchWithNameDescription(searchKey);
 
+        if (tasks.size() == 0){
+            System.out.println("No Tasks with this search key.");
+            return;
+        }
+
+        int i = 0;
+        for (Task task: tasks){
+            i++;
+            System.out.println("--------------------");
+            System.out.println("Task " + i + ":");
+            System.out.println(task);
+            System.out.println("--------------------");
+        }
     }
 }

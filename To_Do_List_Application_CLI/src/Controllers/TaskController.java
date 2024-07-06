@@ -69,4 +69,8 @@ public class TaskController {
         taskDAO.update(taskID, task2);
     }
 
+
+    public List<Task> searchWithNameDescription(String searchKey){
+        return taskDAO.getTaskWithFiltration(user, searchKey, searchKey, null, null);
+    }
 }
