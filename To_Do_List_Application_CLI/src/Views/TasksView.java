@@ -53,7 +53,6 @@ public class TasksView {
         }
     }
 
-
     public void getCompletedTasks(){
         List<Task> tasks = taskController.getCompletedTask();
         if (tasks.size() == 0){
@@ -71,7 +70,7 @@ public class TasksView {
     }
 
     public void getUnCompletedTasks(){
-        List<Task> tasks = taskController.getCompletedTask();
+        List<Task> tasks = taskController.getUnCompletedTask();
         if (tasks.size() == 0){
             System.out.println("No Tasks Completed.");
             return;
@@ -86,10 +85,9 @@ public class TasksView {
         }
     }
 
-
     public void getTasksWithSpecificPriority(){
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter Task New Priority: ");
+        System.out.print("Enter priority you want to search from 1 to 4: ");
         String priorityString = scanner.nextLine();
         if (!MainView.isNumeric(priorityString)){
             System.out.println("Please enter valid value.");
@@ -101,9 +99,29 @@ public class TasksView {
             System.out.println("please Enter Valid Priority Level From 0 to 4.");
             new UserView(user).HomePage();
         }
+
+        List<Task> tasks = taskController.getTasksWithSpecificPriority(priority);
+
+        if (tasks.size() == 0){
+            System.out.println("No Tasks with this priority.");
+            return;
+        }
+
+        int i = 0;
+        for (Task task: tasks){
+            i++;
+            System.out.println("--------------------");
+            System.out.println("Task " + i + ":");
+            System.out.println(task);
+            System.out.println("--------------------");
+        }
     }
 
     public void getTasksWithSearchInName_Description(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter priority you want to search from 1 to 4: ");
+        String searchKey = scanner.nextLine();
+
 
     }
 }
